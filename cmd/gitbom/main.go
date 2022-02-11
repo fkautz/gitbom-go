@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/facebookgo/symwalk"
 	"github.com/fkautz/gitbom-go"
+	"github.com/fkautz/gitbom-go/pkg/util"
 	"log"
 	"os"
 )
@@ -20,7 +20,7 @@ func main() {
 }
 
 func addToGitBom(gb gitbom.ArtifactTree, fileName string) error {
-	err := symwalk.Walk(fileName, func(path string, info os.FileInfo, err error) error {
+	return util.Walk(fileName, true, true, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
 		}
@@ -43,5 +43,4 @@ func addToGitBom(gb gitbom.ArtifactTree, fileName string) error {
 		}
 		return nil
 	})
-	return err
 }
